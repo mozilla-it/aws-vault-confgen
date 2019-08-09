@@ -1,0 +1,27 @@
+# aws-vault generated section
+
+[{{ master_account_name }}]
+output = json
+region = us-west-2
+
+[profile {{ master_account_name }}-admin]
+source_profile = {{ master_account_name }}
+role_arn = arn:aws:iam::{{ master_account_id }}:role/itsre/AdminRole
+mfa_serial = arn:aws:iam::{{ master_account_id }}:mfa/{{ username }}
+
+[profile {{ master_account_name }}-ro]
+source_profile = {{ master_account_name }}
+role_arn = arn:aws:iam::{{ master_account_id }}:role/itsre/ReadOnlyRole
+mfa_serial = arn:aws:iam::{{ master_account_id }}:mfa/{{username}}
+
+{% for account_name, account_id in accounts.items() %}
+[profile {{ account_name }}-admin ]
+source_profile = {{ master_account_name }}
+role_arn = arn:aws:iam::{{ account_id }}:role/itsre-admin
+mfa_serial = arn:aws:iam::{{ master_account_id }}:mfa/{{ username }}
+
+[profile {{ account_name }}-ro ]
+source_profile = {{ master_account_name }}
+role_arn = arn:aws:iam::{{ account_id }}:role/itsre-readonly
+mfa_serial = arn:aws:iam::{{ master_account_id }}:mfa/{{ username }}
+{% endfor %}
