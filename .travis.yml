@@ -1,23 +1,11 @@
 language: python
 sudo: required
 
-services:
-- docker
-
 branches:
   only:
     - master
 
-env:
-  global:
-  - IMAGE_NAME="itsre/aws-vault-confgen"
-  - COMMIT="${TRAVIS_COMMIT::8}"
-  - secure: fgrcL84Z5mzU+Uirx5NdMNmKpZsri3GNkRchboKhoBpYBUgSQtiBFtBPSXtqagfW9eC2pme9IvwrJf2j3nMGMJ67yFwm/WvODVC3WSaqMFXmFkZVoAwH8GBLJ2xPTYbJfRy7yON69CDIOOrFpKTH2sCkKL8rRinRtDDI101mzUqQt75+w3MdvqzJ5js+oiXoOlVI+zXEsG3HN5CXehQ11u9zdWp6h+YpNEf6PCx9ufccUXshCmkhwCLSjVehUG94lLSdV/ETFXXPKFAjlVX0jBk2DonvUFRqH1dgy3L77y8XkSodJE1cZLkvxw5XCnDZX+nNQyIIu/34xBno8cJZZkg8gwQncKUiS81AowyaSC3NkbWVKcONktpMelfDPWNO2BkOV3G1PqxvRa4Jco9TqSacYQINOt1+blZGq9Y024paJc79rX6wo5Q70OdRUvxNpnPqxr3sO49eqG9ChcayiCjkobd8gA8i1XPGA4kZCDhMPZDZRUXyfw1ZTr/F27tP0Y0gBvmYyARjm4byOjq4RkUQpxFOzRgOr652bEHScOx20A6cwsTcYT7xJmgRSj6CudL2Av+JHE95ZZM5ykWTVd3N9yJDEXGLlssrePkj97kOIC+HicSho2cSa43hMp2UpbAi547SCI6EUqsCA5UPiViZFkfMxCR5u8J4o6DDNQ0=
-  - secure: BThkS92A5MdJlTIajAimBGVORAPpy/1WuwYe23oZI6csqBDJuWP4RdIHDgND8HS+N8Wg9LsZdcyVidyffOmE8Rfp0nImta+OoUbtGpnmAfTE/jSNaeA7rUkqzlval4NvgACWDEuxprq4VvA/H//1nPDKrti0i3dT8fExvGFqrMb0qlPnwNXjwXr0iUWfuyrBuKYupfjMX28PsNIMtGE2+c4sVDxlBcPoQSEFt64wSX/IumvoIJes0Bw49REM2dRXp+cPILMlJvbZiMnag/oznEhC98RuvxIuu2ZWp2xzrS21ikC2GZLlIZX4N/v6A//kt2jnfhWkloBv+icwYO4HwTmaySYYBYJ8c0kguwzbsiynw7r0z1hyVDPCY8AlfyCiMuMlCDXz4aZ0pfsSV3m/Ca3/rJov+XPlJvaydCKGtZr0uYbdDw8t85TPUdX2kvEbP/M/u6hTtkrYFS+tppMqd4WXdnO2BySWGQj7RHoTrAoDIXqBQ/IF34gvucguM5Qx2jK+2Jj9WKP8hA3jqILxntqRcEAIDwaTvOqwOk1M8jh+D80DEIVuRevPp9Rg95wghTG2Qrg0cona+5Yb987Uv3Cnc9T4hhDhZqZJ6ueouqc5skBYosXi7S93/e+VfottWgl7agJz/X2zAo3cyzfcaKUKEx8R8CrsNkRdu0WePVg=
-
 before_install:
-  - echo "Logging in to dockerhub"
-  - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USER" --password-stdin
   - echo "Installing linter"
   - pip install pycodestyle
 
@@ -26,9 +14,3 @@ jobs:
     - stage: Lint
       script:
         - pycodestyle .
-    - stage: Build Image
-      script:
-        - docker build --tag "$IMAGE_NAME" --tag "$IMAGE_NAME:$COMMIT" .
-        - docker push "$IMAGE_NAME"
-        - docker push "$IMAGE_NAME:$COMMIT"
-        - docker images
