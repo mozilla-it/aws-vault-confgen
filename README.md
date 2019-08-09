@@ -6,6 +6,5 @@ IT-SRE group use at own risk
 ```
 docker pull itsre/aws-vault-confgen:latest
 cd itsre-accounts
-docker run --rm -it -v $(pwd):/data itsre/aws-vault-confgen:latest
-./generate.py -u <your ldap username> -i /data/accounts/mozilla-itsre/terraform.tfvars
+docker run --rm -it -v $(pwd):/data itsre/aws-vault-confgen -u elim -i ./accounts/mozilla-itsre/terraform.tfvars
 ```
