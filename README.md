@@ -20,4 +20,3 @@ pip uninstall ply; pip uninstall pyhcl; pip install ply; pip install pyhcl
 pip install -r requirements.txt
 ./generate.py -u <your ldap username> -i <path to itsre-accounts>/accounts/mozilla-itsre/terraform.tfvars
 ```
-
