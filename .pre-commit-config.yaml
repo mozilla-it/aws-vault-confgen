@@ -1,0 +1,33 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-docstring-first
+      - id: check-yaml
+      - id: check-json
+      - id: trailing-whitespace
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-executables-have-shebangs
+      - id: double-quote-string-fixer
+      - id: end-of-file-fixer
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.7.7
+    hooks:
+      - id: flake8
+  - repo: git://github.com/Yelp/detect-secrets
+    rev: v0.12.7
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+  - repo: git://github.com/detailyang/pre-commit-shell
+    rev: v1.0.6
+    hooks:
+      - id: shell-lint
+        args: ['-x']
+  - repo: git://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.19.0
+    hooks:
+      - id: terraform_fmt
+        exclude: \.terraform\/.*$
